@@ -29,7 +29,7 @@ public class FlipkartSales implements SaleInsightsForVendor {
     String line = "";
     String splitBy = ",";
      
-    BufferedReader br = new BufferedReader(new FileReader(csvFile,StandardCharsets.UTF_8));
+    BufferedReader br = new BufferedReader(new FileReader(csvFile.toString(),StandardCharsets.UTF_8));
     try {
       while ((line = br.readLine()) != null) {
         String[] record = line.split(splitBy, -1);
