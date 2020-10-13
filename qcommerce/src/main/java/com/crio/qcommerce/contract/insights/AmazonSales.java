@@ -7,7 +7,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +28,8 @@ public class AmazonSales implements SaleInsightsForVendor {
     String line = "";
     String splitBy = ",";
      
-    BufferedReader br = new BufferedReader(new FileReader(csvFile.toString(),
-            StandardCharsets.UTF_8));
+    BufferedReader br = new BufferedReader(new FileReader(csvFile,
+            Charset.forName("UTF8")));
     try {
       while ((line = br.readLine()) != null) {
         String[] record = line.split(splitBy, -1);
