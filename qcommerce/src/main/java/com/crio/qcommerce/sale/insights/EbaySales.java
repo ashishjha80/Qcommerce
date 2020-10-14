@@ -1,6 +1,8 @@
-package com.crio.qcommerce.contract.insights;
+package com.crio.qcommerce.sale.insights;
 
 import com.crio.qcommerce.contract.exceptions.AnalyticsException;
+import com.crio.qcommerce.contract.insights.SaleAggregate;
+import com.crio.qcommerce.contract.insights.SaleAggregateByMonth;
 import com.crio.qcommerce.contract.resolver.DataProvider;
 
 import java.io.BufferedReader;
@@ -14,8 +16,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FlipkartSales implements SaleInsightsForVendor {
-  
+public class EbaySales implements SaleInsightsForVendor {
+
   public SaleAggregate  calcSaleInsightsForVendor(DataProvider dataProvider, int year)
       throws IOException, AnalyticsException {
     
@@ -36,18 +38,17 @@ public class FlipkartSales implements SaleInsightsForVendor {
     try {
       while ((line = br.readLine()) != null) {
         String[] record = line.split(splitBy, -1);
-        if (record[3].isEmpty() || record[5].isEmpty()) {
+        if (record[3].isEmpty() || record[4].isEmpty()) {
           AnalyticsException ex = new AnalyticsException("missing date or amount");
           throw ex;
         }
-        if (record[4].isEmpty() || record[4].equals("complete") || record[4].equals("paid")
-                || record[4].equals("shipped")) {
-          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        if (record[2].isEmpty() || record[2].equals("complete") || record[2].equals("Delivered")) {
+          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
           LocalDate date = LocalDate.parse(record[3],formatter);
           if (date.getYear() == year) {
-            totalSales = totalSales + Double.parseDouble(record[5]);
+            totalSales = totalSales + Double.parseDouble(record[4]);
             Double currentMonthSales = salesByMonths.get(date.getMonthValue() - 1);
-            currentMonthSales = currentMonthSales + Double.parseDouble(record[5]);
+            currentMonthSales = currentMonthSales + Double.parseDouble(record[4]);
             salesByMonths.set(date.getMonthValue() - 1,currentMonthSales);
           }
         }
@@ -66,4 +67,5 @@ public class FlipkartSales implements SaleInsightsForVendor {
     
     return sales;
   }
+  
 }

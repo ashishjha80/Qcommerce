@@ -1,6 +1,8 @@
-package com.crio.qcommerce.contract.insights;
+package com.crio.qcommerce.sale.insights;
 
 import com.crio.qcommerce.contract.exceptions.AnalyticsException;
+import com.crio.qcommerce.contract.insights.SaleAggregate;
+import com.crio.qcommerce.contract.insights.SaleInsights;
 import com.crio.qcommerce.contract.resolver.DataProvider;
 import java.io.IOException;
 

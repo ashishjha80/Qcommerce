@@ -1,4 +1,4 @@
-package com.crio.qcommerce.contract.insights;
+package com.crio.qcommerce.sale.insights;
 
 public class SaleInsightsForVendorFactory {
   
