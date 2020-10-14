@@ -21,7 +21,8 @@ public class AmazonSales implements SaleInsightsForVendor {
     Double totalSales = 0d;
     List<Double> salesByMonths = new ArrayList<>();
     for (int i = 0;i < 12;i++) {
-      salesByMonths.add(0d);  
+      salesByMonths.add(0d);
+        
     }
     File csvFile = dataProvider.resolveFile();
     String line = "";
